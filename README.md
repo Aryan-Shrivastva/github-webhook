@@ -4,13 +4,13 @@ A comprehensive Node.js/Express server for handling GitHub webhook events with s
 
 ## Features
 
-- 🔐 **Secure**: GitHub signature validation with HMAC-SHA256
-- 📁 **Smart File Detection**: Automatically detects changes to specific files (index.html, package.json, config files, Dockerfiles)
-- 📝 **Comprehensive Logging**: Winston-based logging with file and console outputs
-- 🛡️ **Error Handling**: Robust error handling with appropriate HTTP status codes
-- 🧪 **Testing**: Built-in test utilities for webhook validation
-- ⚡ **Performance**: Efficient payload parsing and processing
-- 🔧 **Configurable**: Environment-based configuration
+- **Secure**: GitHub signature validation with HMAC-SHA256
+- **Smart File Detection**: Automatically detects changes to specific files (index.html, package.json, config files, Dockerfiles)
+- **Comprehensive Logging**: Winston-based logging with file and console outputs
+- **Error Handling**: Robust error handling with appropriate HTTP status codes
+- **Testing**: Built-in test utilities for webhook validation
+- **Performance**: Efficient payload parsing and processing
+- **Configurable**: Environment-based configuration
 
 ## Quick Start
 
@@ -456,7 +456,7 @@ function checkFilesOfInterest(modifiedFiles) {
 ```javascript
 // Add to processPushEvent function
 if (filesOfInterest.indexHtml) {
-  await sendSlackNotification(`🚀 Frontend deployed! ${repository} on ${branch}`);
+  await sendSlackNotification(`Frontend deployed! ${repository} on ${branch}`);
 }
 
 async function sendSlackNotification(message) {
@@ -509,4 +509,4 @@ For issues and questions:
 
 ---
 
-**🚀 Happy webhook handling!**
+**Happy webhook handling!**

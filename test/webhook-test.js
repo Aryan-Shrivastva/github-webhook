@@ -184,7 +184,7 @@ class WebhookTester {
  * Run basic tests
  */
 async function runTests() {
-  console.log('🧪 Starting webhook tests...\n');
+  console.log('Starting webhook tests...\n');
   
   // Test configuration
   const serverUrl = process.env.TEST_SERVER_URL || 'http://localhost:3000';
@@ -197,7 +197,7 @@ async function runTests() {
   
   // Test 1: Health check
   try {
-    console.log('📊 Test 1: Health check');
+    console.log('Test 1: Health check');
     const healthResponse = await tester.sendWebhook('ping', {}, {
       headers: { 'X-GitHub-Event': 'ping' }
     });
@@ -207,17 +207,17 @@ async function runTests() {
     const healthReq = await fetch(healthUrl.toString()).catch(() => null);
     
     if (healthReq && healthReq.status === 200) {
-      console.log('✅ Health check passed\n');
+      console.log('Health check passed\n');
     } else {
-      console.log('❌ Health check failed\n');
+      console.log('Health check failed\n');
     }
   } catch (error) {
-    console.log(`❌ Health check error: ${error.message}\n`);
+    console.log('Health check error: ${error.message}\n');
   }
   
   // Test 2: Push event with index.html
   try {
-    console.log('📊 Test 2: Push event with index.html');
+    console.log('Test 2: Push event with index.html');
     const pushPayload = tester.createPushPayload({
       files: ['index.html', 'package.json', 'src/app.js']
     });
@@ -228,18 +228,18 @@ async function runTests() {
     console.log(`Response:`, JSON.stringify(response.body, null, 2));
     
     if (response.statusCode === 200) {
-      console.log('✅ Push event test passed\n');
+      console.log('Push event test passed\n');
     } else {
-      console.log('❌ Push event test failed\n');
+      console.log('Push event test failed\n');
     }
   } catch (error) {
-    console.log(`❌ Push event test error: ${error.message}\n`);
+    console.log('Push event test error: ${error.message}\n');
   }
   
   // Test 3: Invalid signature (if secret is configured)
   if (secret) {
     try {
-      console.log('📊 Test 3: Invalid signature test');
+      console.log('Test 3: Invalid signature test');
       const testerBadSecret = new WebhookTester(serverUrl, 'wrong_secret');
       const pushPayload = tester.createPushPayload();
       
@@ -248,18 +248,18 @@ async function runTests() {
       console.log(`Status: ${response.statusCode}`);
       
       if (response.statusCode === 401) {
-        console.log('✅ Invalid signature test passed\n');
+        console.log('Invalid signature test passed\n');
       } else {
-        console.log('❌ Invalid signature test failed\n');
+        console.log('Invalid signature test failed\n');
       }
     } catch (error) {
-      console.log(`❌ Invalid signature test error: ${error.message}\n`);
+      console.log('Invalid signature test error: ${error.message}\n');
     }
   }
   
   // Test 4: Non-push event
   try {
-    console.log('📊 Test 4: Non-push event (should be ignored)');
+    console.log('Test 4: Non-push event (should be ignored)');
     const issuePayload = {
       action: 'opened',
       issue: {
@@ -275,31 +275,31 @@ async function runTests() {
     console.log(`Response:`, JSON.stringify(response.body, null, 2));
     
     if (response.statusCode === 200 && response.body.processed === false) {
-      console.log('✅ Non-push event test passed\n');
+      console.log('Non-push event test passed\n');
     } else {
-      console.log('❌ Non-push event test failed\n');
+      console.log('Non-push event test failed\n');
     }
   } catch (error) {
-    console.log(`❌ Non-push event test error: ${error.message}\n`);
+    console.log('Non-push event test error: ${error.message}\n');
   }
   
   // Test 5: Invalid JSON
   try {
-    console.log('📊 Test 5: Invalid JSON test');
+    console.log('Test 5: Invalid JSON test');
     const response = await tester.sendWebhook('push', 'invalid json');
     
     console.log(`Status: ${response.statusCode}`);
     
     if (response.statusCode === 400) {
-      console.log('✅ Invalid JSON test passed\n');
+      console.log('Invalid JSON test passed\n');
     } else {
-      console.log('❌ Invalid JSON test failed\n');
+      console.log('Invalid JSON test failed\n');
     }
   } catch (error) {
-    console.log(`❌ Invalid JSON test error: ${error.message}\n`);
+    console.log('Invalid JSON test error: ${error.message}\n');
   }
   
-  console.log('🏁 Tests completed!');
+  console.log('Tests completed!');
 }
 
 // Run tests if this file is executed directly
